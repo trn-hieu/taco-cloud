@@ -2,6 +2,10 @@ package com.example.demo.model;
 
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 public class Taco {
 	public Long id;
 	public String name;

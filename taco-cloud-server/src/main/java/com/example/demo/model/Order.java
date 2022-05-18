@@ -1,10 +1,23 @@
 package com.example.demo.model;
 
+import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
+@Entity
+@Table(name = "tbl_order")
 public class Order {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	private String placeAt;
+	private Date placedAt;
 	private String name; 
 	private String street; 
 	private String city; 
@@ -13,7 +26,12 @@ public class Order {
 	private String ccNumber; 
 	private String ccExpiration; 
 	private String ccCVV;
+	@ManyToMany(targetEntity=Taco.class,cascade = CascadeType.ALL)
 	private List<Taco> tacos;
+	@PrePersist
+	void placedAt() {
+	this.placedAt = new Date();
+	}
 	public Order() {
 		super();
 	}
@@ -71,11 +89,11 @@ public class Order {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public String getPlaceAt() {
-		return placeAt;
+	public Date getPlacedAt() {
+		return placedAt;
 	}
-	public void setPlaceAt(String placeAt) {
-		this.placeAt = placeAt;
+	public void setPlacedAt(Date placeAt) {
+		this.placedAt = placeAt;
 	}
 	public List<Taco> getTacos() {
 		return tacos;
